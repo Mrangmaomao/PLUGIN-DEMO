@@ -19,29 +19,48 @@
   .el-container {
     height: 100%;
   }
-  .el-menu {
-        
-    // margin-top: 32px;
+  .header {
+        margin-top: 12px;
+        background-color: #efefef;
+        height: 40px;
   }
-  .el-menu,.el-menu-item {
-    // height: 28px;
-    // line-height: 28px;
+  .header:after{
+    content: '';
+    display: block;
+    visibility: hidden;
+    height: 0px;
+    clear: both;
+    
+   
+  }
+  .header li{
+     list-style: none;
+     width: 180px;
+     float: left;
+     color: #666;
+     outline-style: none;
+     line-height: 40px;
   }
 </style>
 <template>
     <div>
       <el-container>
         <el-aside width="180px">
-          Aside
+          猫猫收银系统
         </el-aside>
         <el-container>
           <el-header>
-            <el-tabs type="border-card">
-              <el-tab-pane label="用户管理" closable="true"></el-tab-pane>
-              <el-tab-pane label="配置管理" closable="true"></el-tab-pane>
-              <el-tab-pane label="角色管理" closable="true"></el-tab-pane>
-              <el-tab-pane label="定时任务补偿" closable="true"></el-tab-pane>
-            </el-tabs>
+            <div>
+              <ul class="header">
+                <li>
+                  <a href="">首页</a>
+                </li>
+                <li>
+                  <a href="">辅助</a>
+                </li>  
+              </ul>               
+            </div>
+
           </el-header>
           <el-main>
             <router-view></router-view>
@@ -74,4 +93,44 @@ export default{
     }
   }
 }
+// function call(fn,...arg) {
+//   return new Promise((resolve,reject)=>{
+//     fn(...arg).then(response=>{
+//       resolve(response)
+//     }).catch(e=>{
+//       reject(e)
+//     })
+//   })
+// }
+// function actuator(genFun) {
+//   return new Promise((resolve,reject)=>{
+//     let gen = genFun();
+//     function next() {
+//       let value = gen.next();
+//       if (value.done) {
+//         resolve(value);
+//         return;
+//       }
+//       if(value.value&&value.value.then){
+//         value.value.then(response=>{
+//           gen.next(response)
+//         })
+//       } else {
+//         gen.next();
+//       }
+//     };
+//     next();
+//   });
+ 
+// }
+// function getData(time) {
+//   return new Promise((resolve,reject)=>{
+//     setTimeout(()=>resolve('done'),3000)
+//   })
+// }
+// function * init() {
+//   const a = yield call(getData,3000);
+//   console.log(a);
+// }
+// actuator(init);
 </script>

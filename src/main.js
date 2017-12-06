@@ -6,11 +6,14 @@ import ElementUI from 'element-ui';
 import commonJS from './common/js/commonJsFunction.js';
 import Bus from './common/js/this.js';
 import './common/css/main.css';
+import VuePlugin from './plugin/index';
+import './common/font/iconfont.css';
 // import store from './store.js';
 import '../node_modules/element-ui/lib/theme-chalk/index.css'
 Vue.use( VueRouter );
 Vue.use( ElementUI );
 Vue.use(commonJS);
+Vue.use(VuePlugin );
 const RouterConfig = {
     mode: 'hash',
     mode: 'history',
