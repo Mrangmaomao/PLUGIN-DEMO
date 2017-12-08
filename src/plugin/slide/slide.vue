@@ -15,7 +15,6 @@
     }
     .slide>div {
         float: left;
-        // width: 600px;
     }
     .slide>div>img{
         width: 600px;
@@ -43,16 +42,28 @@
     .icon-you {
         right: 0px;
     }
+    .slides-enter,.slides-enter-active{
+        transition: all 0.5s ease;
+        transform: translateX(0)
+    }
+    .slides-leave,.slides-leave-active{
+        transition: all 2s ease;
+        transform: translateX(-100%);
+    }
+    .img-content {
+        display:flex;
+        align-items: content;
+    }
 </style>
 <template>
-  <div class="slide" v-if="urlData.length">
-      <div @click="prev()" v-if="leftRight" class="icon-btn iconfont icon-left">
+  <div class="slide" v-if="urlData.length" @mouseover="clearAnimation" @mouseout="startAnimation">
+      <div @click="prev()" v-if="leftRight" class="icon-btn iconfont icon-left" >
 
       </div>
-      <div class="" v-for="(item,index) in urlData" :key="index" v-if="item.status">
-          <img :src="item.url" :alt="item.title?item.title: '' ">
-      </div>
-      <div  @click="next()" v-if="leftRight" class="icon-btn iconfont icon-you">
+    <transition-group tag="div" name='slides' class='img-content'>
+        <img v-for="(item,index) in urlData" :key="0" v-show="showIndex == index" :src="item.url" :alt="index">
+    </transition-group>
+      <div  @click="next()" v-if="leftRight" class="icon-btn iconfont icon-you" >
 
       </div>
   </div>
@@ -68,57 +79,60 @@
             leftRight: {
                 type: Boolean,
                 default: true
+            },
+            time: {
+                type: Number,
+                default: 8000
             }
         },
         created(){
             let _this = this;
-            _this.urlData.forEach(function( item, index ) {
-                let bool = index == 0 ? true : false;
-                Object.assign(item,{status: bool})
-            });
+            _this.startAnimation();
         },
         data(){
             return {
+                showIndex: 0,
+            }
+        },
+        computed:{
+            prevIndex: function() {
+                let _this = this;
+                let i  = ( _this.showIndex == 0 ) ? _this.urlData.length - 1 :  _this.showIndex - 1;
+                return i;
+                
+            },
+            nextIndex: function() {
+                let _this = this;
+                let i = ( _this.showIndex == _this.urlData.length-1 ) ? 0 :  _this.showIndex + 1;
+                return i;
+            },
+            timeOut: function() {
 
             }
         },
+        beforeDestroy() {
+            let _this = this;
+            _this.clearAnimation();
+        },
         methods: {
-            clearStatus: function() {
-                let _this = this;
-                let i;
-                _this.urlData.forEach(function( item,index ){
-                    if( item.status){
-                        i = index;
-                    }
-                    item.status = false;
-                    _this.$set( _this.urlData,index,_this.urlData[index])
-                });
-                return i;
-            },
             prev: function( ){
                 let _this = this;
-                
-                let i = _this.clearStatus();
-                if ( i == 0 ){
-                    i = _this.urlData.length-1;
-                    _this.urlData[i].status = true;
-                } else {
-                    _this.urlData[i-1].status = true;
-                }
-                _this.$set( _this.urlData,i,_this.urlData[i])
+                _this.showIndex = _this.prevIndex;
             },
             next: function() {
                 let _this = this;
-                let i = _this.clearStatus();
-                if ( i == _this.urlData.length-1 ){
-                    i = 0;
-                    _this.urlData[0].status = true;
-                } else {
-                    _this.urlData[i+1].status = true;
-                }
-                _this.$set( _this.urlData,i,_this.urlData[i])
+                _this.showIndex = _this.nextIndex;
+            },
+            clearAnimation: function() {
+                let _this = this;
+                clearInterval( _this.animation );
+            },
+            startAnimation: function() {
+                let _this =this;
+                _this.animation = setInterval( ()=>{
+                    _this.next();
+                }, _this.time)
             }
         }
     }
-
 </script>
