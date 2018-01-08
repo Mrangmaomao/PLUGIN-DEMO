@@ -47,7 +47,7 @@
         transform: translateX(0)
     }
     .slides-leave,.slides-leave-active{
-        transition: all 2s ease;
+        transition: all .5s ease;
         transform: translateX(-100%);
     }
     .img-content {

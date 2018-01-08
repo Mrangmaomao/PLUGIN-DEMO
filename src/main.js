@@ -29,7 +29,6 @@ new Vue({
     render: h => h(App)
 });
 router.afterEach((to, from, next) => {
-    console.log( to , from,55555555555);
     document.title = to.meta.title || 'webpack + vue + element-ui';
 })
 Bus.$on('back',( n )=>{
