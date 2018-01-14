@@ -12,7 +12,14 @@ const routers = [
                     title: '首页',
                 },
                 component: r => require.ensure( [], ()=> r(require('./views/indexc.vue')))
-            }
+            },
+            {
+                path:'loginSlide',
+                meta: {
+                    title: '首页',
+                },
+                component: r => require.ensure( [], ()=> r(require('./views/logins_slide.vue')))
+            },
         ]
     },
     // {
