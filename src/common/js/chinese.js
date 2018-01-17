@@ -23,8 +23,20 @@ class Fn {
     randomPosition( _this ) { // 随机坐标
         let width = _this.width-30;
         let height = _this.height-30;
-        let x = Math.floor(  Math.random() * width + 30 );
-        let y = Math.floor( Math.random() * height + 30 );
+        let w = width - 30;
+        let h = height - 30;
+        let x = parseInt( Math.random() * w + 30 );
+        let y = parseInt( Math.random() * h + 30 );
+        if ( 'p' in _this && _this.p.length ) {
+            for ( key of _this.p ) {
+                if ( _this.p[key].x == x ) {
+                    x = parseInt( Math.random() * w + 30 );
+                }
+                if ( _this.p[key].y == y ) {
+                    y = parseInt( Math.random() * w + 30 );
+                }
+            }
+        }
         return {x,y};
     }
     getPosition() { // 得到坐标
@@ -95,6 +107,6 @@ class Fn {
 function getCode( obj ) {
     let fn =  new Fn( obj );
     return fn;
+    // fn.getFonts().getPositions()
 }
-
 export default getCode;

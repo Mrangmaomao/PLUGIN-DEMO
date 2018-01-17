@@ -1,16 +1,16 @@
-<style lang="">
-    
+<style lang="less">
+    #canvas:hover{
+        cursor: pointer;
+    }
 </style>
 <template>
     <div>
-    {{msg}}
-    
-        <canvas width="300" height="150" id='canvas' v-show="showCode"></canvas>  
+        <canvas width="120" height="40" id='canvas' v-show="showCode"></canvas>  
         <button class='aa' @click="show">验证码验证</button>      
     </div>  
 </template>
 <script>
-    import getCode from '../common/js/chinese.js';
+    import getCode from 'get-number-code';
     export default {
         data(){
             return {
@@ -32,7 +32,6 @@
                 this.showCode = true;
                 let f = getCode({el:'#canvas'});
                 console.log( f.getFonts() );
-                console.log( f.getPositions() );
             }
         }
     }
