@@ -1,9 +1,10 @@
 <style lang="less" scoped>
   .el-aside{
-    background-color:#46566a;
+    background-color:#39f;
     height: 100%;
     position: fixed;
     left: 0px;
+    padding-top: 20px;
     
   }
   .el-main {
@@ -11,70 +12,40 @@
     height: 100%;
     margin-left: 180px;
   }
-  .el-header {
-    background-color:#20a0ff;
-    height: 48px;
-    margin-left: 180px;
-  }
   .el-container {
     height: 100%;
   }
-  .header {
-        margin-top: 12px;
-        background-color: #efefef;
-        height: 40px;
+  .menu {
+     padding-left: 0px;
+     
   }
-  .header:after{
-    content: '';
-    display: block;
-    visibility: hidden;
-    height: 0px;
-    clear: both;
-    
-   
+  .menu li {
+    list-style:none ;
+    background-color: #62affc;
+    border: 1px solid #62affc;
+    height: 40px;
+    line-height: 40px;
+    padding-left: 15px;
+    width: 180px;
   }
-  .header li{
-     list-style: none;
-     width: 180px;
-     float: left;
-     color: #666;
-     outline-style: none;
-     line-height: 40px;
+  .menu li a{
+    text-decoration: none;
+    color: #fff;
   }
 </style>
 <template>
     <div>
       <el-container>
         <el-aside width="180px">
-            <!-- <el-submenu>
-              <el-menu>
-                <template slot="title">
-                  <i class="el-icon-location"></i>
-                  <span>导航一</span>
-                </template>
-                <el-menu-item-group>
-                  <template slot="title">分组一</template>
-                  <el-menu-item index="1-1">选项1</el-menu-item>
-                  <el-menu-item index="1-2">选项2</el-menu-item>
-                </el-menu-item-group>
-              </el-menu>
-            </el-submenu> -->
-          
+          <el-menu :default-openeds="['1', '3']">
+              <ul class="menu">
+                <li v-for=" item in navs " :key="item.name" >
+                  <router-link :to="item.url">{{item.name}}</router-link>
+                </li>
+              </ul>
+          </el-menu>
         </el-aside>
         <el-container>
-          <el-header>
-            <div>
-              <ul class="header">
-                <li>
-                  <a href="">首页</a>
-                </li>
-                <li>
-                  <a href="">辅助</a>
-                </li>  
-              </ul>               
-            </div>
-
-          </el-header>
           <el-main>
             <router-view></router-view>
           </el-main>
@@ -90,7 +61,12 @@ export default{
     return{
         message: 'hello,world6',
         visible: false,
-        navs: [],
+        navs: [
+          {
+            name:'验证码',
+            url: '/getCode'
+          }
+        ],
         menu: {
           activeIndex: '1',
         },

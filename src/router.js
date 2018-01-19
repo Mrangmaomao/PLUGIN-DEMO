@@ -14,11 +14,11 @@ const routers = [
                 component: r => require.ensure( [], ()=> r(require('./views/indexc.vue')))
             },
             {
-                path:'loginSlide',
+                path:'getCode',
                 meta: {
                     title: '首页',
                 },
-                component: r => require.ensure( [], ()=> r(require('./views/logins_slide.vue')))
+                component: r => require.ensure( [], ()=> r(require('./views/get_code.vue')))
             },
         ]
     },

@@ -2,6 +2,7 @@ const webpack = require( 'webpack');
 const HtmlWebpackPlugin = require( 'html-webpack-plugin');
 const ExtractTextPlugin = require( 'extract-text-webpack-plugin');
 const merge = require( 'webpack-merge');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const webpackBaseConfig = require('./webpack.base.config.js');
 module.exports = merge( webpackBaseConfig,{
     output: {
@@ -23,11 +24,7 @@ module.exports = merge( webpackBaseConfig,{
                 NODE_ENV: 'production'
             }
         }),
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {
-                warnings: false
-            }
-        }),
+        new UglifyJSPlugin(),
         new HtmlWebpackPlugin({
             filename: '../index.html',
             template: './template/index.ejs',
