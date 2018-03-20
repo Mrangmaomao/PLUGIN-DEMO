@@ -1,6 +1,7 @@
 import Slide from './slide/slide.vue';
+import Slip from './Slip/Slip.vue';
 const components = {
-    Slide,
+    Slide,Slip
 };
 const install = function (Vue, opts = {}) {
     Object.keys(components).forEach((key) => {

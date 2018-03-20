@@ -17,7 +17,7 @@
   }
   .menu {
      padding-left: 0px;
-     
+     background-color:#39f;
   }
   .menu li {
     list-style:none ;
@@ -27,6 +27,10 @@
     line-height: 40px;
     padding-left: 15px;
     width: 180px;
+    
+  }
+  .menu li:not(:first-child) {
+    margin-top: 10px;
   }
   .menu li a{
     text-decoration: none;
@@ -39,8 +43,8 @@
         <el-aside width="180px">
           <el-menu :default-openeds="['1', '3']">
               <ul class="menu">
-                <li v-for=" item in navs " :key="item.name" >
-                  <router-link :to="item.url">{{item.name}}</router-link>
+                <li v-for=" item in nav " @click="checkoutUrl( item )" :key="item.name" >
+                  <a href="javascript:" >{{item.name}}</a>
                 </li>
               </ul>
           </el-menu>
@@ -61,10 +65,18 @@ export default{
     return{
         message: 'hello,world6',
         visible: false,
-        navs: [
+        nav: [
+           {
+            name:'首页',
+            url: '/indexc'
+          }  ,
           {
             name:'验证码',
             url: '/getCode'
+          }  ,
+          {
+            name:'富文本',
+            url: '/getRich'
           }
         ],
         menu: {
@@ -84,6 +96,9 @@ export default{
   methods: {
     adds(){
       Bus.$emit('go','indexc');
+    },
+    checkoutUrl( item ) {
+      Bus.$emit('go',item.url );
     }
   }
 }
