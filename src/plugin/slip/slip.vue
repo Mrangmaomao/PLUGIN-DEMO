@@ -4,7 +4,11 @@
 <template>
  <div> {{mess}}
      <ul>
-
+         <li v-for='(item , index) in pages' :key="item"
+         :style="[transformIndex(index),transform(index)]"
+         >
+             {{item.src}}
+         </li>
      </ul>
  </div>
 </template>
